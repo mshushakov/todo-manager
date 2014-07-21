@@ -1,0 +1,55 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+
+.todo {
+  position: absolute;
+  cursor: pointer;
+  list-style: none;
+  margin: 0;
+  box-sizing: border-box;
+  width: 250px;
+  min-height: 200px;
+  padding: 28px 10px 0;
+  border-top: 0 solid;
+  border-right: 0 solid;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0 10px 200px / 0 200px 14px 250px;
+  font: 23px/30px "Comic Sans MS", sans-serif;
+  color: rgba(255, 0, 106, 0.58);
+  text-align: center;
+  background: repeating-linear-gradient(180deg, rgba(129, 203, 188, 0.5) 0, rgba(129, 203, 188, 0.5) 1px, rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0) 29px), #fcf59b;
+  box-shadow: -3px 5px 12px 0 rgba(0, 0, 0, 0.1);
+  /*transform: rotateZ(-4deg);*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none; }
+
+.-dragging {
+  opacity: .7;
+  cursor: move;
+  z-index: 100; }
+
+.-editing {
+  z-index: 100; }
+  .-editing .todo-title {
+    display: none; }
+  .-editing .todo-input {
+    display: block; }
+
+.todo-input {
+  display: none;
+  border: none;
+  background: transparent;
+  resize: none;
+  font: 23px/30px "Comic Sans MS", sans-serif;
+  color: rgba(255, 0, 106, 0.58);
+  text-align: center;
+  width: 230px;
+  height: 168px;
+  position: relative;
+  top: -1px; }

@@ -1,0 +1,7 @@
+#ignore rules
+
+node_modules/*
+.idea/*
+.settings/*
+.sass-cache/*
+
