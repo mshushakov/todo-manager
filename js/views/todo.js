@@ -28,6 +28,7 @@ app.TodoView = Backbone.View.extend({
     },
 
     _editTodo: function(e) {
+        if (e) e.stopPropagation();
         this.$el.addClass("-editing").data("draggable", false);
         this.$(".todo-input").text(this.model.get("title")).prop("disabled", false).focus();
     },
@@ -38,7 +39,7 @@ app.TodoView = Backbone.View.extend({
 
     _updateTodo: function(e) {
         var title = e.target.value;
-        this.$el.removeClass("-editing").data("draggable", true);;
+        this.$el.removeClass("-editing").data("draggable", true);
         this.$(".todo-title").text(title)
         this.model.change("title", title);
     }

@@ -1,3 +1,5 @@
+"use strict";
+
 var app = app || {};
 
 app.TodosCollection = Backbone.Collection.extend({

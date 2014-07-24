@@ -6,7 +6,12 @@ html, body {
     overflow: hidden;
 }
 
-#todos {}
+#todos {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 .todo {
     position: absolute;
@@ -28,7 +33,6 @@ html, body {
     background: repeating-linear-gradient(180deg, rgba(129,203,188,0.5) 0, rgba(129,203,188,0.5) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 29px), #fcf59b;
     box-shadow: -3px 5px 12px 0 rgba(0,0,0,0.1);
     /*transform: rotateZ(-4deg);*/
-
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
@@ -50,6 +54,12 @@ html, body {
     .todo-input {
         display: block;
     }
+}
+
+.todo-title {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
 }
 
 .todo-input {

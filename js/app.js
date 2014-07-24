@@ -1,7 +1,7 @@
 var app = app || {};
 
 $(function() {
-    //Dragging plugin for jQuery
+    //Stickers (as a plugin for jQuery)
     app.Sticker = {
         isDragging: false,
         offset: {},
@@ -17,6 +17,7 @@ $(function() {
         },
 
         _dragStart: function(e) {
+            e.preventDefault();
             if (!this.$el.data("draggable")) return;
             this.isDragging = true;
             this.$el.addClass("-dragging");
@@ -52,11 +53,6 @@ $(function() {
         });
     };
 
-    //Applications
-    app.Todos = new app.TodosCollection();
-    app.Todos.fetch();
-    app.Todos.each(function(todo) {
-        var view = new app.TodoView({model: todo});
-        $("#todos").append(view.render().el);
-    }, this);
+    //Application
+    $("body").prepend(new app.AppView().render().el);
 });
