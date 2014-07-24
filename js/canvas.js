@@ -35,9 +35,11 @@ function perlinNoise(canvas, noise) {
 }
 
 
-var canvas = document.querySelector('canvas');
-var ctx = canvas.getContext('2d');
-canvas.width = document.documentElement.scrollWidth;
-canvas.height = document.documentElement.scrollHeight;
+$(function() {
+    var canvas = document.querySelector('canvas');
+    canvas.width = document.documentElement.scrollWidth;
+    canvas.height = document.documentElement.scrollHeight;
 
-perlinNoise(canvas, randomNoise(canvas, 0, 0,  canvas.width, canvas.height, 10));
+    //randomNoise(canvas, 0, 0,  canvas.width, canvas.height, 10);
+    perlinNoise(canvas, randomNoise(canvas, 0, 0,  canvas.width, canvas.height, 10));
+});
