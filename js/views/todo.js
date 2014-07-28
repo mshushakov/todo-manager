@@ -107,6 +107,6 @@ app.TodoView = Backbone.View.extend({
         minutes = (minutes < 10) ? "0" + minutes : minutes;
         seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-        return hours + "<span>:</span>" + minutes + ":" + seconds;
+        return hours + ":" + minutes + ":" + seconds;
     }
 });
