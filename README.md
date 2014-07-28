@@ -1,4 +1,4 @@
-todo-manager
+Todo Manager (with timer)
 ============
 
-Just another version of Backbone Todo App
+Yet another version of Backbone Todo App

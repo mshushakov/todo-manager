@@ -15,6 +15,7 @@ app.AppView = Backbone.View.extend({
         app.Todos.fetch();
 
         this.listenTo(app.Todos, 'add', this.addTodoAndEdit);
+        this.listenTo(app.Todos, 'change:pause', this._modelChangeHandler);
     },
 
     render: function() {
@@ -27,16 +28,30 @@ app.AppView = Backbone.View.extend({
     },
 
     addTodoAndEdit: function(todo) {
+        todo.start();
         var view = new app.TodoView({model: todo});
         this.$el.append(view.render().el);
-        view._editTodo();
+        view.switchToEdit();
+    },
+
+    pauseAll: function() {
+        app.Todos.each(function(model) { model.pause() });
     },
 
     _createTodo: function(e) {
-        e.preventDefault();
+        e.stopPropagation();
+        this.pauseAll();
         app.Todos.add({
             title: "",
             position: { x: e.clientX - 125, y: e.clientY }
         });
+    },
+
+    _modelChangeHandler: function(model) {
+        if (!model.get("pause")) {
+            app.Todos.each(function(m) {
+                if (m !== model) m.pause();
+            });
+        }
     }
 });

@@ -11,9 +11,16 @@
 <body>
 
 <canvas></canvas>
+<a class="source-link" href="https://github.com/mshushakov/todo-manager">Source Code</a>
 
 <!-- Templates: -->
 <script type="text/template" id="todo-template">
+    <div class="todo-controls">
+        <span class="timer">--:--</span>
+        <span class="icon-pause" title="pause"></span>
+        <span class="icon-resume" title="resume"></span>
+        <span class="icon-complete" title="complete"></span>
+    </div>
 	<div class="todo-title"><%= title %></div>
     <textarea class="todo-input" disabled></textarea>
 </script>

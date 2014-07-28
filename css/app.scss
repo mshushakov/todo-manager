@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Marck+Script&subset=latin,cyrillic);
+
 html, body {
     padding: 0;
     margin: 0;
@@ -6,11 +8,41 @@ html, body {
     overflow: hidden;
 }
 
+body {
+    position: relative;
+
+    &:after {
+        content: "Double click to \A create new TODO";
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: 40%;
+        z-index: -1;
+        white-space: pre;
+        text-align: center;
+        color: rgba(255, 255, 255, .9);
+        font: bold 27px/35px sans-serif;
+        text-transform: uppercase;
+    }
+}
+
 canvas {
     z-index: -1;
     position: absolute;
     top: 0;
     left: 0;
+}
+.source-link {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    text-decoration: none;
+    background: #fff;
+    padding: 7px;
+    border-radius: 5px;
+    font: 14px sans-serif;
+    color: #333;
 }
 
 #todos {
@@ -28,21 +60,19 @@ canvas {
     box-sizing: border-box;
     width: 250px;
     min-height: 200px;
-    padding: 28px 10px 0;
+    padding: 0 20px;
     border-top: 0 solid;
     border-right: 0 solid;
     border-bottom: 1px solid rgba(0,0,0,0.2);
     border-left: 1px solid rgba(0,0,0,0.2);
     border-radius: 0 10px 200px / 0 200px 14px 250px;
-    font: 23px/30px "Comic Sans MS", sans-serif;
-    color: rgba(255,0,106,0.58);
-    text-align: center;
-    background: repeating-linear-gradient(180deg, rgba(129,203,188,0.5) 0, rgba(129,203,188,0.5) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 29px), #fcf59b;
+    font: 25px/30px 'Marck Script', cursive;
+    color: rgba(0, 0, 0, 0.7);
+    text-align: left;
+    background: repeating-linear-gradient(180deg, rgba(129,203,188,0.5) 0, rgba(129,203,188,0.5) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 29px), #fefda0;
     box-shadow: -3px 5px 12px 0 rgba(0,0,0,0.1);
+    z-index: 1;
     /*transform: rotateZ(-4deg);*/
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
 }
 
 .-dragging {
@@ -63,10 +93,44 @@ canvas {
     }
 }
 
+.-in-progress {
+    background-color: #ffc961;
+
+    .icon-resume {
+        display: none;
+    }
+
+    .icon-pause {
+        display: inline-block;
+    }
+
+    .timer span {
+        animation: tick 1s steps(2) infinite;
+    }
+}
+
+@keyframes tick {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.-completed {
+    background-color: #b7eb65;
+
+    .icon-resume {
+        display: inline-block;
+    }
+
+    .icon-complete {
+        display: none;
+    }
+}
+
 .todo-title {
-    -webkit-user-select: none;
-    -moz-user-select: none;
+   -moz-user-select: none;
+   -webkit-user-select: none;
     user-select: none;
+    word-wrap: break-word
 }
 
 .todo-input {
@@ -74,11 +138,57 @@ canvas {
     border: none;
     background: transparent;
     resize: none;
-    font: 23px/30px "Comic Sans MS", sans-serif;
-    color: rgba(255,0,106,0.58);
-    text-align: center;
-    width: 230px;
+    font: 25px/30px 'Marck Script', cursive;;
+    color: rgba(0, 0, 0, 0.7);
+    text-align: left;
+    width: 210px;
     height: 168px;
+    position: absolute;
+    top: 32px;
+    left: 20px;
+    padding: 0;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.todo-controls {
+    padding-top: 3px;
+    height: 30px;
+    text-align: left;
+
+    .timer {
+        float: right;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        position: relative;
+        top: -3px;
+    }
+}
+
+[class^="icon"] {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.icon-pause {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgYmFzZVByb2ZpbGU9InRpbnkiIGhlaWdodD0iMjRweCIgaWQ9IkxheWVyXzEiIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHBhdGggZD0iTTgsNkM2Ljg5Niw2LDYsNi44OTYsNiw4djhjMCwxLjEwNCwwLjg5NiwyLDIsMnMyLTAuODk2LDItMlY4QzEwLDYuODk2LDkuMTA0LDYsOCw2eiIvPjxwYXRoIGQ9Ik0xNSw2Yy0xLjEwNCwwLTIsMC44OTYtMiwydjhjMCwxLjEwNCwwLjg5NiwyLDIsMnMyLTAuODk2LDItMlY4QzE3LDYuODk2LDE2LjEwNCw2LDE1LDZ6Ii8+PC9zdmc+);
+    background-size: cover;
+    display: none;
+}
+
+.icon-resume {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgYmFzZVByb2ZpbGU9InRpbnkiIGhlaWdodD0iMjRweCIgaWQ9IkxheWVyXzEiIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGc+PHBhdGggZD0iTTEwLjM5NiwxOC40MzNDMTMuMDM3LDE1Ljg1OSwxNywxMiwxNywxMnMtMy45NjMtMy44NTktNi42MDQtNi40MzNDMTAuMDMzLDUuMjE4LDkuNTQzLDUsOSw1QzcuODk2LDUsNyw1Ljg5Niw3LDd2MTAgICBjMCwxLjEwNCwwLjg5NiwyLDIsMkM5LjU0MywxOSwxMC4wMzMsMTguNzgyLDEwLjM5NiwxOC40MzN6Ii8+PC9nPjwvc3ZnPg==);
+    background-size: cover;
+}
+
+.icon-complete {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgYmFzZVByb2ZpbGU9InRpbnkiIGhlaWdodD0iMjRweCIgaWQ9IkxheWVyXzEiIHZlcnNpb249IjEuMiIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHBhdGggZD0iTTE2Ljk3Miw2LjI1MWMtMC45NjctMC41MzgtMi4xODUtMC4xODgtMi43MiwwLjc3N2wtMy43MTMsNi42ODJsLTIuMTI1LTIuMTI1Yy0wLjc4MS0wLjc4MS0yLjA0Ny0wLjc4MS0yLjgyOCwwICBjLTAuNzgxLDAuNzgxLTAuNzgxLDIuMDQ3LDAsMi44MjhsNCw0QzkuOTY0LDE4Ljc5MiwxMC40NzQsMTksMTEsMTljMC4wOTIsMCwwLjE4NS0wLjAwNiwwLjI3Ny0wLjAyICBjMC42MjEtMC4wODcsMS4xNjYtMC40NiwxLjQ3MS0xLjAwOWw1LTlDMTguMjg1LDguMDA1LDE3LjkzNyw2Ljc4OCwxNi45NzIsNi4yNTF6Ii8+PC9zdmc+);
+    background-size: cover;
     position: relative;
     top: -1px;
 }

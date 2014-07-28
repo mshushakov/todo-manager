@@ -27,7 +27,7 @@ function perlinNoise(canvas, noise) {
         var x = (Math.random() * (noise.width - size)) | 0,
             y = (Math.random() * (noise.height - size)) | 0;
         g.globalAlpha = 4 / size;
-        g.drawImage(noise, x, y, size, size, 0, 0, canvas.width, canvas.height);
+        if (size < canvas.height) g.drawImage(noise, x, y, size, size, 0, 0, canvas.width, canvas.height);
     }
 
     g.restore();
@@ -37,8 +37,9 @@ function perlinNoise(canvas, noise) {
 
 $(function() {
     var canvas = document.querySelector('canvas');
-    canvas.width = document.documentElement.scrollWidth;
-    canvas.height = document.documentElement.scrollHeight;
+    var context = canvas.getContext("2d");
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
 
     //randomNoise(canvas, 0, 0,  canvas.width, canvas.height, 10);
     perlinNoise(canvas, randomNoise(canvas, 0, 0,  canvas.width, canvas.height, 10));
