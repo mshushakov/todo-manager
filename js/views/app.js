@@ -43,7 +43,8 @@ app.AppView = Backbone.View.extend({
         this.pauseAll();
         app.Todos.add({
             title: "",
-            position: { x: e.clientX - 125, y: e.clientY }
+            position: { x: e.clientX - 125, y: e.clientY },
+            periods: []
         });
     },
 

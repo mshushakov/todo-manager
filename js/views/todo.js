@@ -23,7 +23,7 @@ app.TodoView = Backbone.View.extend({
     },
 
     initialize: function() {
-        this.listenTo(this.model, 'change:periods', this._updateTimer);
+        this.listenTo(this.model, 'change', this._updateTimer);
         this.listenTo(this.model, 'change:pause', this.switchState);
         this.listenTo(this.model, 'change:completed', this.switchState);
         this._time = this.model.getTime();
@@ -58,7 +58,7 @@ app.TodoView = Backbone.View.extend({
         else {
             this.$el.removeClass("-completed").addClass("-in-progress");
             this.$(".timer").html(this._msToTime(this._time));
-            this._timer = setInterval($.proxy(this._showTime, this), 60000);
+            this._timer = setInterval($.proxy(this._showTime, this), 1000);
         }
     },
 
@@ -89,22 +89,24 @@ app.TodoView = Backbone.View.extend({
         this.model.change("title", title);
     },
 
-    _updateTimer: function() {
+    _updateTimer: function(model) {
         this._time = this.model.getTime();
     },
 
     _showTime: function() {
-        this._time += 60000;
+        this._time += 1000;
         this.$(".timer").html(this._msToTime(this._time));
     },
 
     _msToTime: function(duration) {
         var minutes = parseInt((duration/(1000*60))%60),
-            hours = parseInt((duration/(1000*60*60))%24);
+            hours = parseInt((duration/(1000*60*60))%24),
+            seconds = parseInt((duration/(1000))%60)
 
         hours = (hours < 10) ? "0" + hours : hours;
         minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-        return hours + "<span>:</span>" + minutes;
+        return hours + "<span>:</span>" + minutes + ":" + seconds;
     }
 });
